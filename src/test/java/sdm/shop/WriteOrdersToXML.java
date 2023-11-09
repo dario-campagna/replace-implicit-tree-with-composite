@@ -19,25 +19,26 @@ public class WriteOrdersToXML {
         order.addProduct(new Product("p1112", "Toy Porsche Convertible", "230.0", Currency.USD, Color.RED));
         Orders orders = new Orders();
         orders.addOrder(order);
+        
         OrdersWriter ordersWriter = new OrdersWriter(orders);
 
         String expectedResult =
-                "<orders>" +
-                        "<order id='321'>" +
+                "<orders>" + 
+                    "<order id='321'>" +
                         "<product id='f1234' color='red' size='medium'>" +
-                        "<price currency='USD'>" +
-                        "8.95" +
-                        "</price>" +
-                        "Fire truck" +
+                            "<price currency='USD'>" +
+                                "8.95" +
+                            "</price>" +
+                            "Fire truck" +
                         "</product>" +
                         "<product id='p1112' color='red'>" +
-                        "<price currency='USD'>" +
-                        "230.0" +
-                        "</price>" +
-                        "Toy Porsche Convertible" +
+                            "<price currency='USD'>" +
+                                "230.0" +
+                            "</price>" +
+                            "Toy Porsche Convertible" +
                         "</product>" +
-                        "</order>" +
-                        "</orders>";
+                    "</order>" +
+                "</orders>";
 
         assertEquals(expectedResult, ordersWriter.getContents());
     }
