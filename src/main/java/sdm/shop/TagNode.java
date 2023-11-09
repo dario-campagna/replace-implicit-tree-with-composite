@@ -1,13 +1,18 @@
 package sdm.shop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TagNode {
     private final String name;
     private String value = "";
     private final StringBuilder attributes;
+    private List<TagNode> children;
 
     public TagNode(String name) {
         this.name = name;
         attributes = new StringBuilder();
+        children = new ArrayList<>();
     }
 
     public void addValue(String value) {
@@ -16,9 +21,12 @@ public class TagNode {
 
     @Override
     public String toString() {
-        return "<" + name + attributes.toString() + ">" + 
-                    value + 
-                "</" + name + ">";
+        StringBuilder result = new StringBuilder();
+        result.append("<").append(name).append(attributes).append(">");
+        children.forEach(result::append);
+        result.append(value);
+        result.append("</").append(name).append(">");
+        return result.toString();
     }
 
     public void addAttribute(String attribute, String value) {
@@ -27,5 +35,9 @@ public class TagNode {
         attributes.append("='");
         attributes.append(value);
         attributes.append("'");
+    }
+
+    public void add(TagNode node) {
+        children.add(node);
     }
 }
