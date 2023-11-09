@@ -35,30 +35,23 @@ public class OrdersWriter {
     private static void writeProductsTo(StringBuilder xml, Order order) {
         for (int j = 0; j < order.getProductCount(); j++) {
             Product product = order.getProduct(j);
-            xml.append("<product");
-            xml.append(" id='");
-            xml.append(product.getID());
-            xml.append("'");
-            xml.append(" color='");
-            xml.append(product.getColor());
-            xml.append("'");
+            TagNode productTag = new TagNode("product");
+            productTag.addAttribute("id", product.getID());
+            productTag.addAttribute("color", product.getColor().toString());
             if (product.getSize() != ProductSize.NOT_APPLICABLE) {
-                xml.append(" size='");
-                xml.append(product.getSize());
-                xml.append("'");
+                productTag.addAttribute("size", product.getSize().toString());
             }
-            xml.append(">");
-            writePriceTo(xml, product);
-            xml.append(product.getName());
-            xml.append("</product>");
+            writePriceTo(productTag, product);
+            productTag.addValue(product.getName());
+            xml.append(productTag);
         }
     }
 
-    private static void writePriceTo(StringBuilder xml, Product product) {
+    private static void writePriceTo(TagNode productTag, Product product) {
         TagNode priceNode = new TagNode("price");
         priceNode.addAttribute("currency", product.getCurrency().toString());
         priceNode.addValue(product.getPrice());
-        xml.append(priceNode);
+        productTag.add(priceNode);
     }
 
 }
