@@ -19,20 +19,18 @@ public class OrdersWriter {
     }
 
     private void writeOrdersTo(StringBuilder xml) {
-        xml.append("<orders>");
+        TagNode ordersTag = new TagNode("orders");
         for (int i = 0; i < orders.getOrderCount(); i++) {
             Order order = orders.getOrder(i);
-            xml.append("<order");
-            xml.append(" id='");
-            xml.append(order.getOrderId());
-            xml.append("'>");
-            writeProductsTo(xml, order);
-            xml.append("</order>");
+            TagNode orderTag = new TagNode("order");
+            orderTag.addAttribute("id", order.getOrderId());
+            writeProductsTo(orderTag, order);
+            ordersTag.add(orderTag);
         }
-        xml.append("</orders>");
+        xml.append(ordersTag);
     }
 
-    private static void writeProductsTo(StringBuilder xml, Order order) {
+    private static void writeProductsTo(TagNode orderTag, Order order) {
         for (int j = 0; j < order.getProductCount(); j++) {
             Product product = order.getProduct(j);
             TagNode productTag = new TagNode("product");
@@ -43,7 +41,7 @@ public class OrdersWriter {
             }
             writePriceTo(productTag, product);
             productTag.addValue(product.getName());
-            xml.append(productTag);
+            orderTag.add(productTag);
         }
     }
 
