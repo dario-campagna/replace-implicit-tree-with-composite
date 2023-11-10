@@ -1,6 +1,6 @@
 # Refactoring to Patterns – Replace Implicit Tree with Composite
 
-*Replace Implicit Tree with Composite* is one of the refactorings described in Chapter 7 of the book [Refactoring to Patterns](https://industriallogic.com/xp/refactoring/).
+*Replace Implicit Tree with Composite* is the refactoring described in Chapter 7 of the book [Refactoring to Patterns](https://industriallogic.com/xp/refactoring/).
 
 The commits in this repository try to mimic the test-driven steps described in the example section of the chapter. The first commit represents the initial state with the implicit tree in the ```OrdersWriter``` class.  
 
